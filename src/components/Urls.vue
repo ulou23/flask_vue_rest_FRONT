@@ -4,10 +4,10 @@
       <div class="col-sm-10">
         <h1>SEND your URLs</h1>
 <br>
-        <b-form @save="onSubmit" class="w-100" >
+        <b-form @save="onSubmit" class="w-100" >  <!-- MAIL send events zrobic -->
           <b-input id="inline-form-mail" type="email" placeholder="Your Mail" ></b-input>
           <br>
-          <b-button variant="primary" type="save">Save</b-button>
+          <b-button variant="primary" type="submit">Save</b-button>
         </b-form>
         <br>
           <b-form @submit="onSubmit" @reset="onReset" class="w-100">
@@ -38,7 +38,10 @@
             <td>{{ url.urlinput }}</td>
             <td>
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-info btn-sm">Update</button>
+                <button type="button"
+                        class="btn btn-info btn-sm"
+                        v-b-modal.url-update-modal
+                        @click="editUrl(url)">Update</button>
                 <button type="button" class="btn btn-danger btn-sm">Delete</button>
               </div>
             </td>
@@ -47,6 +50,27 @@
         </table>
       </div>
     </div>
+    <b-modal ref="editUrlModal"
+             id="url-update-modal"
+             title="Update"
+             hide-footer>
+      <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
+        <b-form-group id="form-urlinput-edit-group"
+                      label="Url:"
+                      label-for="form-url-edit-input">
+          <b-form-input id="form-url-edit-input"
+                        type="text"
+                        v-model="editForm.urlinput"
+                        required
+                        placeholder="Update path">
+          </b-form-input>
+        </b-form-group>
+        <b-button-group>
+          <b-button type="submit" variant="primary">Update</b-button>
+          <b-button type="reset" variant="danger">Cancel</b-button>
+        </b-button-group>
+      </b-form>
+    </b-modal>
   </div>
 </template>
 
@@ -58,6 +82,10 @@ export default {
     return {
       urls: [],
       addUrlForm: {
+        urlinput: '',
+      },
+      editForm: {
+        id: '',
         urlinput: '',
       },
     };
@@ -88,6 +116,8 @@ export default {
     },
     initForm() {
       this.addUrlForm.urlinput = '';
+      this.editForm.id = '';
+      this.editForm.urlinput = '';
     },
     onSubmit(evt) {
       evt.preventDefault();
@@ -100,6 +130,35 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       this.initForm();
+    },
+    editUrl(url) {
+      this.editForm = url;
+    },
+    onSubmitUpdate(evt) {
+      evt.preventDefault();
+      this.$refs.editUrlModal.hide();
+      const payload = {
+        urlinput: this.editForm.urlinput,
+      };
+      this.updateUrl(payload, this.editForm.id);
+    },
+    updateUrl(payload, urlID) {
+      const path = `http://localhost:5000/urls/${urlID}`;
+      axios.put(path, payload)
+        .then(() => {
+          this.getUrls();
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+          this.getUrls();
+        });
+    },
+    onResetUpdate(evt) {
+      evt.preventDefault();
+      this.$refs.editUrlModal.hide();
+      this.initForm();
+      this.getUrls();
     },
   },
   created() {
