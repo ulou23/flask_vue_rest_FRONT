@@ -7,7 +7,7 @@
         <b-form @save="onSubmit" class="w-100" >  <!-- MAIL send events zrobic -->
           <b-input id="inline-form-mail" type="email" placeholder="Your Mail" ></b-input>
           <br>
-          <b-button variant="primary" type="submit">Save</b-button>
+          <b-button variant="primary" type="submit">Send</b-button>
         </b-form>
         <br>
           <b-form @submit="onSubmit" @reset="onReset" class="w-100">
@@ -42,7 +42,9 @@
                         class="btn btn-info btn-sm"
                         v-b-modal.url-update-modal
                         @click="editUrl(url)">Update</button>
-                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                <button type="button"
+                        class="btn btn-danger btn-sm"
+                        @click="onDeleteUrl(url)">Delete</button>
               </div>
             </td>
           </tr>
@@ -159,6 +161,21 @@ export default {
       this.$refs.editUrlModal.hide();
       this.initForm();
       this.getUrls();
+    },
+    removeUrl(urlID) {
+      const path = `http://localhost:5000/urls/${urlID}`;
+      axios.delete(path)
+        .then(() => {
+          this.getUrls();
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+          this.getUrls();
+        });
+    },
+    onDeleteUrl(urlinput) {
+      this.removeUrl(urlinput.id);
     },
   },
   created() {
