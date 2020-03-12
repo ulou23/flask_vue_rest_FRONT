@@ -3,16 +3,17 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>SEND your URLs</h1>
-   <!--     <b-modal ref="addBookModal"       -->
-   <!--              id="book-modal"          -->
-   <!--              title="Add a new book"   -->
-   <!--              hide-footer>             -->
+<br>
+        <b-form @save="onSubmit" class="w-100" >
+          <b-input id="inline-form-mail" type="email" placeholder="Your Mail" ></b-input>
+          <br>
+          <b-button variant="primary" type="save">Save</b-button>
+        </b-form>
+        <br>
           <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-            <b-form-group id="form-url-group"
-                          label="Url:"
-                          label-for="form-url-input">
+            <b-form-group>
               <b-form-input id="form-url-input"
-                            type="text"
+                            type="url"
                             v-model="addUrlForm.urlinput"
                             required
                             placeholder="Enter url">
