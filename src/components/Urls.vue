@@ -52,6 +52,40 @@
         </table>
       </div>
     </div>
+    <br>
+<b-container>
+  <b-card class="col-sm-10" bg-variant="info" text-variant="white"  title="Card Title"
+
+          >
+    <b-card-text>
+      With supporting text below as a natural lead-in to additional content.
+    </b-card-text>
+    <b-button href="#" variant="light">Go somewhere</b-button>
+  </b-card>
+      <b-card-group deck class="col-sm-10">
+        <b-card v-for="(url, index) in urls" :key="index"
+        bg-variant="info" text-variant="white"
+                header="featured"
+          header-tag="header"
+          title="Title"
+                img-src="https://picsum.photos/600/300/?image=25"
+                img-alt="Image"
+                img-top
+        >
+          <b-card-text> {{ url.urlinput }}</b-card-text>
+          <b-button href="#" variant="primary">Go somewhere</b-button>
+        </b-card>
+
+        <b-card title="Title" header-tag="header" footer-tag="footer">
+          <template v-slot:header>
+            <h6 class="mb-0">Header Slot</h6>
+          </template>
+          <b-card-text>Header and footers using slots.</b-card-text>
+          <b-button href="#" variant="primary">Go somewhere</b-button>
+
+        </b-card>
+      </b-card-group>
+</b-container>
     <b-modal ref="editUrlModal"
              id="url-update-modal"
              title="Update"
@@ -73,7 +107,7 @@
         </b-button-group>
       </b-form>
     </b-modal>
-  </div>
+</div>
 </template>
 
 <script>
