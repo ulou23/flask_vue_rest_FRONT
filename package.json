@@ -12,8 +12,11 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.19",
     "core-js": "^3.6.4",
+    "rss-parser": "^3.7.5",
+    "rss-url-parser": "^1.1.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.1.5"
+    "vue-router": "^3.1.5",
+    "vue-rss-parser": "^0.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",

@@ -4,11 +4,13 @@
       <div class="col-sm-10">
         <h1>SEND your URLs</h1>
 <br>
-        <b-form @save="onSubmit" class="w-100" >  <!-- MAIL send events zrobic -->
-          <b-input id="inline-form-mail" type="email" placeholder="Your Mail" ></b-input>
+        <b-form @submit="Send" class="w-100" >  <!-- MAIL send events zrobic -->
+          <b-input id="inline-form-mail" v-model="addMailForm.mail" type="email"
+                   placeholder="Your Mail"></b-input>
           <br>
           <b-button variant="primary" type="submit">Send</b-button>
         </b-form>
+
         <br>
           <b-form @submit="onSubmit" @reset="onReset" class="w-100">
             <b-form-group>
@@ -19,7 +21,6 @@
                             placeholder="Enter url">
               </b-form-input>
             </b-form-group>
-
             <b-button-group>
               <b-button type="submit" variant="primary">Submit</b-button>
               <b-button type="reset" variant="danger">Reset</b-button>
@@ -54,36 +55,20 @@
     </div>
     <br>
 <b-container>
-  <b-card class="col-sm-10" bg-variant="info" text-variant="white"  title="Card Title"
-
-          >
-    <b-card-text>
-      With supporting text below as a natural lead-in to additional content.
-    </b-card-text>
-    <b-button href="#" variant="light">Go somewhere</b-button>
-  </b-card>
       <b-card-group deck class="col-sm-10">
         <b-card v-for="(url, index) in urls" :key="index"
         bg-variant="info" text-variant="white"
-                header="featured"
-          header-tag="header"
-          title="Title"
-                img-src="https://picsum.photos/600/300/?image=25"
                 img-alt="Image"
-                img-top
-        >
+                img-top>
+
+          <b-card img-src="https://picsum.photos/600/300/?image=25"></b-card>
+          <b-card-title> {{ url.urlinput }}</b-card-title>
           <b-card-text> {{ url.urlinput }}</b-card-text>
-          <b-button href="#" variant="primary">Go somewhere</b-button>
-        </b-card>
-
-        <b-card title="Title" header-tag="header" footer-tag="footer">
-          <template v-slot:header>
-            <h6 class="mb-0">Header Slot</h6>
-          </template>
-          <b-card-text>Header and footers using slots.</b-card-text>
-          <b-button href="#" variant="primary">Go somewhere</b-button>
+          <b-button target="_new" :href="url.urlinput" variant="primary">
+            Read more</b-button>
 
         </b-card>
+
       </b-card-group>
 </b-container>
     <b-modal ref="editUrlModal"
@@ -107,6 +92,7 @@
         </b-button-group>
       </b-form>
     </b-modal>
+    <VueRssParser :feedUrl="feedUrl" :name="name" :limit="limit"/>
 </div>
 </template>
 
@@ -123,6 +109,9 @@ export default {
       editForm: {
         id: '',
         urlinput: '',
+      },
+      addMailForm: {
+        mail: '',
       },
     };
   },
@@ -150,10 +139,29 @@ export default {
           this.getUrls();
         });
     },
+    addMail(payload) {
+      const path = 'http://localhost:5000/send';
+      axios.post(path, payload)
+        .then((res) => {
+          // eslint-disable-next-line no-param-reassign
+          res.payload = this.mail;
+        }).catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        });
+    },
     initForm() {
       this.addUrlForm.urlinput = '';
       this.editForm.id = '';
       this.editForm.urlinput = '';
+      this.addMailForm = '';
+    },
+    Send(evt) {
+      evt.preventDefault();
+      const payload = {
+        mail: this.addMailForm.mail,
+      };
+      this.addMail(payload);
     },
     onSubmit(evt) {
       evt.preventDefault();
