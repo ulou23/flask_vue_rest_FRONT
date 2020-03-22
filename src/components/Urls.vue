@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-10">
-        <h1>SEND your URLs</h1>
+        <h1>SEND your RSS URLs</h1>
 <br>
         <b-form @submit="Send" class="w-100" >  <!-- MAIL send events zrobic -->
           <b-input id="inline-form-mail" v-model="addMailForm.mail" type="email"
@@ -18,7 +18,7 @@
                             type="url"
                             v-model="addUrlForm.urlinput"
                             required
-                            placeholder="Enter url">
+                            placeholder="Enter RSS url">
               </b-form-input>
             </b-form-group>
             <b-button-group>
@@ -103,6 +103,7 @@ export default {
   data() {
     return {
       urls: [],
+      // allItems: [],
       addUrlForm: {
         urlinput: '',
       },
@@ -219,9 +220,34 @@ export default {
     onDeleteUrl(urlinput) {
       this.removeUrl(urlinput.id);
     },
+    // loaditems(url) {
+    //   const Parser = require('rss-parser');
+    //   const parser = new Parser();
+    //   (async () => {
+    //     const feed = parser.parseURL(url);
+    //   });
+    // },
   },
+  //  loadFeed(feed) {
+  //    fetch(encodeURIComponent(feed.urlinput))
+  //      .then((res) => res.json())
+  //      .then((res) => {
+  //        res.feed.items.forEach((item => {
+  //          item.title = feed.title;
+  //          this.allItems.push(item);
+  //        });
+  //      });
+  //  },
+  //  restoreFeeds() {
+  //    const feeds = localStorage.getItem('urls');
+  //    this.feeds = JSON.parse(feeds);
+  //    this.feeds.forEach((feed) => {
+  //      this.loadFeed(feed);
+  //    });
+  //  },
   created() {
     this.getUrls();
+    // this.restoreFeeds();
   },
 };
 </script>
