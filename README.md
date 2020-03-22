@@ -1,4 +1,8 @@
-# vueflaskapi
+# vueflaskapi     
+
+BACKEND https://github.com/ulou23/flask_vue_rest_BACKEND python Flask
+
+FRONTEND https://github.com/ulou23/flask_vue_rest_FRONT/
 
 ## Project setup
 ```
