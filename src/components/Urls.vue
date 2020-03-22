@@ -223,7 +223,7 @@ export default {
     // loaditems(url) {
     //   const Parser = require('rss-parser');
     //   const parser = new Parser();
-    //   (async () => {  <<<
+    //   (async () => {
     //     const feed = parser.parseURL(url);
     //   });
     // },
