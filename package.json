@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "D": "^1.0.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.19",
@@ -15,6 +16,7 @@
     "rss-parser": "^3.7.5",
     "rss-url-parser": "^1.1.0",
     "vue": "^2.6.11",
+    "vue-loader": "^15.9.1",
     "vue-router": "^3.1.5",
     "vue-rss-parser": "^0.1.0"
   },
@@ -28,7 +30,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-vue": "^6.1.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-cli": "^3.3.11"
   },
   "eslintConfig": {
     "root": true,
