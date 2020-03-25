@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     getUrls() {
-      const path = 'http://localhost:5000/urls';
+      const path = 'https://sendurlsback.azurewebsites.net/urls';
       axios.get(path)
         .then((res) => {
           this.urls = res.data.urls;
@@ -129,7 +129,7 @@ export default {
         });
     },
     addUrl(payload) {
-      const path = 'http://localhost:5000/urls';
+      const path = 'https://sendurlsback.azurewebsites.net/urls';
       axios.post(path, payload)
         .then(() => {
           this.getUrls();
@@ -141,7 +141,7 @@ export default {
         });
     },
     addMail(payload) {
-      const path = 'http://localhost:5000/send';
+      const path = 'https://sendurlsback.azurewebsites.net/send';
       axios.post(path, payload)
         .then((res) => {
           // eslint-disable-next-line no-param-reassign
@@ -188,7 +188,7 @@ export default {
       this.updateUrl(payload, this.editForm.id);
     },
     updateUrl(payload, urlID) {
-      const path = `http://localhost:5000/urls/${urlID}`;
+      const path = `https://sendurlsback.azurewebsites.net/urls/${urlID}`;
       axios.put(path, payload)
         .then(() => {
           this.getUrls();
@@ -206,7 +206,7 @@ export default {
       this.getUrls();
     },
     removeUrl(urlID) {
-      const path = `http://localhost:5000/urls/${urlID}`;// 'http://localhost:5000/urls
+      const path = `https://sendurlsback.azurewebsites.net/urls/${urlID}`;// 'http://localhost:5000/urls
       axios.delete(path)
         .then(() => {
           this.getUrls();
